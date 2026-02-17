@@ -1,986 +1,199 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="0;url=html/index.html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Creative Developer & Digital Artist Portfolio">
-    <title>Creative / Dev</title>
+    <title>正在跳转...</title>
+    <script>
+        // 立即重定向到 html/index.html
+        window.location.href = 'html/index.html';
+    </script>
+</head>
+<body>
+    <p>正在跳转到首页... 如果没有自动跳转，请<a href="html/index.html">点击这里</a>。</p>
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mixed Media Portfolio | Creative Dev</title>
     
-    <!-- 
-    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    🎨 QUICK REPLACEMENT GUIDE (快速替换指南)
-    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    
-    1. **图片替换** (Image Replacement):
-       - Hero 区域的 Three.js 纹理: 搜索 "REPLACE-HERO-TEXTURE" 
-       - Gallery 项目卡片: 搜索 "REPLACE-PROJECT-IMAGE"
-       - 推荐使用透明背景的撕纸素材或高质量项目截图
-    
-    2. **文本内容** (Text Content):
-       - 主标题: 搜索 "CREATIVE" 和 "/ DEV"
-       - About 文字: 搜索 "REPLACE-ABOUT-TEXT"
-       - 项目标题: 搜索 "Project Title"
-       - 邮箱地址: 搜索 "hello@example.com"
-    
-    3. **颜色调整** (Color Scheme):
-       - 所有颜色变量在 CSS :root 区域
-       - 大地色系: --earth-brown, --charcoal
-       - 强调色: --neon-green, --klein-blue
-    
-    4. **动画速度** (Animation Speed):
-       - Lenis 滚动速度: 搜索 "duration: 1.2"
-       - GSAP 动画时间: 搜索 "duration:" 调整各动画时长
-       - 视差强度: 搜索 "parallax speed" 调整速度因子
-    
-    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    -->
-    
-    <!-- Google Fonts: 混合字体方案 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700;900&family=Montserrat:wght@800;900&family=Caveat:wght@700&family=Permanent+Marker&display=swap" rel="stylesheet">
-    
-    <!-- Tailwind CSS CDN (用于基础布局) -->
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Inter:wght@300;400&family=Oswald:wght@400;700&display=swap" rel="stylesheet">
+
     <script src="https://cdn.tailwindcss.com"></script>
-    
+
     <style>
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-           🎨 CSS VARIABLES (颜色方案)
-           ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
         :root {
-            /* 大地色系 Earth Tones */
-            --paper-white: #f4f1ea;
-            --cream: #fef9f3;
-            --earth-brown: #8b7355;
-            --charcoal: #2d2d2d;
-            
-            /* 强调色 Accent Colors */
-            --neon-green: #39ff14;
-            --klein-blue: #002fa7;
-            --hot-pink: #ff6b9d;
-            
-            /* 字体 Fonts */
-            --font-display: 'Montserrat', sans-serif;
-            --font-handwrite: 'Permanent Marker', cursive;
-            --font-body: 'Inter', sans-serif;
+            --c-bg: #EAE7DC;       /* 纸张白 */
+            --c-text: #1E1E1E;     /* 炭黑 */
+            --c-accent: #E85A4F;   /* 铁锈红 */
+            --c-neon: #CCFF00;     /* 荧光绿 (高光) */
         }
-        
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-           🔧 GLOBAL RESET & BASE STYLES
-           ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        html {
-            scroll-behavior: auto; /* Lenis 会接管滚动 */
-        }
-        
+
         body {
-            background: var(--paper-white);
-            color: var(--charcoal);
-            font-family: var(--font-body);
-            overflow-x: hidden;
-            /* 纸张噪点纹理 - 可以替换为自己的纹理图片 */
-            background-image: 
-                url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
-            background-blend-mode: multiply;
+            background-color: var(--c-bg);
+            color: var(--c-text);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden; /* 防止横向滚动条 */
+            margin: 0;
         }
-        
-        ::selection {
-            background: var(--neon-green);
-            color: var(--charcoal);
-        }
-        
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-           ⏳ LOADING SCREEN (撕纸过渡效果)
-           ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-        #loading-screen {
+
+        /* --- 核心纹理：噪点效果 (Noise) --- */
+        .grain-overlay {
             position: fixed;
-            inset: 0;
-            background: var(--charcoal);
-            z-index: 9999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: clip-path 1.2s cubic-bezier(0.77, 0, 0.175, 1);
-            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-        }
-        
-        #loading-screen.hidden {
-            clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
-            pointer-events: none;
-        }
-        
-        .loader-text {
-            font-family: var(--font-display);
-            font-size: clamp(2rem, 5vw, 4rem);
-            color: var(--neon-green);
-            font-weight: 900;
-            letter-spacing: 0.1em;
-            animation: pulse 1.5s ease-in-out infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-        
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-           🦸 HERO SECTION (解构式标题 + Three.js Canvas)
-           ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-        #hero {
-            position: relative;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-        
-        /* Three.js Canvas 背景 */
-        #hero-canvas {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 1;
-            opacity: 0;
-            transition: opacity 1s ease;
-        }
-        
-        #hero-canvas.loaded {
-            opacity: 1;
-        }
-        
-        /* 解构式标题容器 */
-        .hero-title-wrapper {
-            position: relative;
-            z-index: 2;
-            mix-blend-mode: difference;
-        }
-        
-        .title-line {
-            font-family: var(--font-display);
-            font-size: clamp(4rem, 15vw, 12rem);
-            font-weight: 900;
-            line-height: 0.9;
-            letter-spacing: -0.02em;
-            color: var(--cream);
-            display: block;
-            white-space: nowrap;
-            will-change: transform;
-        }
-        
-        .title-line:first-child {
-            transform: rotate(-3deg) translateX(-5%);
-        }
-        
-        .title-line:last-child {
-            transform: rotate(2deg) translateX(8%);
-            font-family: var(--font-handwrite);
-            font-size: clamp(3rem, 12vw, 10rem);
-            color: var(--neon-green);
-        }
-        
-        /* 装饰贴纸 */
-        .sticker {
-            position: absolute;
-            padding: 0.5rem 1.5rem;
-            background: var(--hot-pink);
-            color: white;
-            font-family: var(--font-handwrite);
-            font-size: 1.5rem;
-            transform: rotate(-12deg);
-            box-shadow: 4px 4px 12px rgba(0,0,0,0.2);
-            z-index: 3;
-            animation: float 3s ease-in-out infinite;
-        }
-        
-        .sticker-1 {
-            top: 15%;
-            right: 10%;
-        }
-        
-        .sticker-2 {
-            bottom: 20%;
-            left: 5%;
-            background: var(--klein-blue);
-            transform: rotate(8deg);
-            animation-delay: 0.5s;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(-12deg); }
-            50% { transform: translateY(-20px) rotate(-12deg); }
-        }
-        
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-           📝 ABOUT SECTION (流动排版 + SVG 涂鸦)
-           ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-        #about {
-            position: relative;
-            min-height: 100vh;
-            padding: 10vh 5vw;
-            display: flex;
-            align-items: center;
-            background: var(--cream);
-        }
-        
-        .about-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            position: relative;
-        }
-        
-        .about-text {
-            font-size: clamp(1.5rem, 3.5vw, 3rem);
-            line-height: 1.4;
-            font-weight: 700;
-            color: var(--charcoal);
-            max-width: 800px;
-            position: relative;
-            z-index: 2;
-        }
-        
-        .about-text span {
-            display: inline-block;
-            opacity: 0;
-            transform: translateY(50px);
-            will-change: transform, opacity;
-        }
-        
-        .highlight {
-            color: var(--hot-pink);
-            position: relative;
-        }
-        
-        .highlight::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: -5%;
-            width: 110%;
-            height: 40%;
-            background: var(--neon-green);
-            opacity: 0.3;
-            transform: rotate(-1deg);
-            z-index: -1;
-        }
-        
-        /* SVG 涂鸦装饰 */
-        .doodle-svg {
-            position: absolute;
-            pointer-events: none;
-            opacity: 0.7;
-        }
-        
-        .doodle-arrow {
-            top: 10%;
-            right: 5%;
-            width: 200px;
-            height: 150px;
-        }
-        
-        .doodle-circle {
-            bottom: 15%;
-            left: -5%;
-            width: 250px;
-            height: 250px;
-        }
-        
-        .svg-path {
-            stroke-dasharray: 1000;
-            stroke-dashoffset: 1000;
-            animation: draw 2s ease forwards;
-        }
-        
-        @keyframes draw {
-            to { stroke-dashoffset: 0; }
-        }
-        
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-           🖼️ GALLERY SECTION (撒在桌子上的照片)
-           ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-        #gallery {
-            position: relative;
-            min-height: 150vh;
-            padding: 15vh 5vw;
-            background: var(--paper-white);
-        }
-        
-        .gallery-container {
-            max-width: 1600px;
-            margin: 0 auto;
-            position: relative;
-            height: 120vh;
-        }
-        
-        .section-label {
-            font-family: var(--font-handwrite);
-            font-size: clamp(1.5rem, 3vw, 2.5rem);
-            color: var(--klein-blue);
-            margin-bottom: 5rem;
-            transform: rotate(-2deg);
-            display: inline-block;
-        }
-        
-        /* 照片卡片 */
-        .photo-card {
-            position: absolute;
-            width: clamp(280px, 30vw, 400px);
-            background: white;
-            padding: 1rem;
-            box-shadow: 
-                4px 4px 12px rgba(0,0,0,0.1),
-                8px 8px 24px rgba(0,0,0,0.05);
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-            will-change: transform;
-            opacity: 0;
-        }
-        
-        .photo-card::before {
-            content: '';
-            position: absolute;
-            inset: -5px;
-            background: inherit;
-            filter: blur(10px);
-            opacity: 0;
-            transition: opacity 0.3s;
-            z-index: -1;
-        }
-        
-        .photo-card:hover {
-            transform: scale(1.1) rotate(0deg) !important;
-            z-index: 100 !important;
-            box-shadow: 12px 12px 40px rgba(0,0,0,0.2);
-        }
-        
-        .photo-card:hover::before {
-            opacity: 0.3;
-        }
-        
-        .photo-img {
-            width: 100%;
-            aspect-ratio: 4/3;
-            object-fit: cover;
-            display: block;
-            filter: grayscale(20%);
-            transition: filter 0.3s;
-        }
-        
-        .photo-card:hover .photo-img {
-            filter: grayscale(0%);
-        }
-        
-        .photo-title {
-            margin-top: 0.75rem;
-            font-family: var(--font-handwrite);
-            font-size: 1.25rem;
-            color: var(--charcoal);
-            text-align: center;
-        }
-        
-        /* 随机定位和旋转 (通过内联样式设置) */
-        .photo-card:nth-child(1) { top: 10%; left: 5%; transform: rotate(-8deg); }
-        .photo-card:nth-child(2) { top: 15%; right: 10%; transform: rotate(5deg); }
-        .photo-card:nth-child(3) { top: 45%; left: 15%; transform: rotate(-3deg); }
-        .photo-card:nth-child(4) { top: 50%; right: 15%; transform: rotate(7deg); }
-        .photo-card:nth-child(5) { top: 75%; left: 25%; transform: rotate(-12deg); }
-        .photo-card:nth-child(6) { top: 70%; right: 20%; transform: rotate(4deg); }
-        
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-           📧 FOOTER (Glitch 故障效果邮箱)
-           ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-        #footer {
-            position: relative;
-            min-height: 60vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--charcoal);
-            overflow: hidden;
-        }
-        
-        .footer-email {
-            font-family: var(--font-display);
-            font-size: clamp(2rem, 8vw, 6rem);
-            font-weight: 900;
-            color: var(--cream);
-            text-decoration: none;
-            position: relative;
-            display: inline-block;
-            transition: all 0.3s;
-        }
-        
-        /* Glitch 效果使用伪元素 */
-        .footer-email::before,
-        .footer-email::after {
-            content: attr(data-text);
-            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            opacity: 0;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.07;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
-        
-        .footer-email::before {
-            color: var(--hot-pink);
-            z-index: -1;
-            clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
-        }
-        
-        .footer-email::after {
-            color: var(--klein-blue);
-            z-index: -2;
-            clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
-        }
-        
-        .footer-email:hover {
-            animation: glitch 0.3s infinite;
-        }
-        
-        .footer-email:hover::before {
-            animation: glitch-before 0.3s infinite;
-            opacity: 0.8;
-        }
-        
-        .footer-email:hover::after {
-            animation: glitch-after 0.3s infinite;
-            opacity: 0.8;
-        }
-        
-        @keyframes glitch {
-            0%, 100% { transform: translate(0); }
-            33% { transform: translate(-3px, 2px); }
-            66% { transform: translate(3px, -2px); }
-        }
-        
-        @keyframes glitch-before {
-            0%, 100% { transform: translate(0); }
-            33% { transform: translate(5px, 3px); }
-            66% { transform: translate(-5px, -3px); }
-        }
-        
-        @keyframes glitch-after {
-            0%, 100% { transform: translate(0); }
-            33% { transform: translate(-5px, -3px); }
-            66% { transform: translate(5px, 3px); }
-        }
-        
-        .footer-note {
+
+        /* --- 字体工具类 --- */
+        .font-display { font-family: 'Oswald', sans-serif; text-transform: uppercase; }
+        .font-hand { font-family: 'Caveat', cursive; }
+
+        /* --- 视觉元素：胶带效果 (Tape) --- */
+        .tape {
             position: absolute;
-            bottom: 2rem;
-            font-size: 0.875rem;
-            color: var(--earth-brown);
-            font-family: var(--font-body);
+            background-color: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+            backdrop-filter: blur(2px);
+            transform: rotate(-2deg);
+            z-index: 10;
         }
-        
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-           📱 RESPONSIVE (移动端优化)
-           ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-        @media (max-width: 768px) {
-            .title-line {
-                font-size: clamp(3rem, 12vw, 5rem);
-            }
-            
-            .sticker {
-                font-size: 1rem;
-                padding: 0.3rem 1rem;
-            }
-            
-            .about-text {
-                font-size: clamp(1.2rem, 4vw, 1.8rem);
-            }
-            
-            .photo-card {
-                width: 80vw !important;
-            }
-            
-            .gallery-container {
-                height: auto;
-                display: flex;
-                flex-direction: column;
-                gap: 2rem;
-            }
-            
-            .photo-card {
-                position: relative !important;
-                top: auto !important;
-                left: auto !important;
-                right: auto !important;
-            }
-            
-            .doodle-svg {
-                display: none;
-            }
+
+        /* --- Lenis 必须样式 --- */
+        html.lenis { height: auto; }
+        .lenis.lenis-smooth { scroll-behavior: auto; }
+        .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+        .lenis.lenis-stopped { overflow: hidden; }
+        .lenis.lenis-scrolling iframe { pointer-events: none; }
+
+        /* --- WebGL Canvas 容器 --- */
+        #hero-canvas {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -1;
+            opacity: 0.8;
         }
-        
-        /* 尊重用户的运动偏好 */
-        @media (prefers-reduced-motion: reduce) {
-            *,
-            *::before,
-            *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
+
+        /* --- 故障文字特效 (Glitch Hover) --- */
+        .glitch-hover {
+            position: relative;
+            display: inline-block;
+            transition: color 0.3s;
+        }
+        .glitch-hover::before, .glitch-hover::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: var(--c-bg);
+            overflow: hidden;
+            visibility: hidden;
+        }
+        .glitch-hover:hover { color: transparent; }
+        .glitch-hover:hover::before {
+            visibility: visible;
+            left: 2px;
+            text-shadow: -1px 0 red;
+            clip-path: inset(0 0 0 0);
+            animation: glitch-anim-1 2s infinite linear alternate-reverse;
+        }
+        .glitch-hover:hover::after {
+            visibility: visible;
+            left: -2px;
+            text-shadow: -1px 0 blue;
+            clip-path: inset(0 0 0 0);
+            animation: glitch-anim-2 2s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim-1 {
+            0% { clip-path: inset(20% 0 80% 0); }
+            20% { clip-path: inset(60% 0 10% 0); }
+            40% { clip-path: inset(40% 0 50% 0); }
+            60% { clip-path: inset(80% 0 5% 0); }
+            80% { clip-path: inset(10% 0 60% 0); }
+            100% { clip-path: inset(30% 0 30% 0); }
+        }
+        @keyframes glitch-anim-2 {
+            0% { clip-path: inset(10% 0 60% 0); }
+            20% { clip-path: inset(30% 0 20% 0); }
+            40% { clip-path: inset(70% 0 10% 0); }
+            60% { clip-path: inset(20% 0 50% 0); }
+            80% { clip-path: inset(50% 0 30% 0); }
+            100% { clip-path: inset(0% 0 80% 0); }
         }
     </style>
 </head>
 <body>
-    <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-         💫 LOADING SCREEN
-         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
-    <div id="loading-screen">
-        <div class="loader-text">LOADING...</div>
-    </div>
 
-    <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-         🦸 HERO SECTION
-         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
-    <section id="hero">
-        <!-- Three.js Canvas (鼠标跟随扭曲效果) -->
-        <canvas id="hero-canvas"></canvas>
-        
-        <!-- 解构式标题 -->
-        <div class="hero-title-wrapper">
-            <span class="title-line">CREATIVE</span>
-            <span class="title-line">/ DEV</span>
-        </div>
-        
-        <!-- 装饰贴纸 (可以替换为自己的文字) -->
-        <div class="sticker sticker-1">EST. 2026</div>
-        <div class="sticker sticker-2">SCROLL ↓</div>
-    </section>
+    <div class="grain-overlay"></div>
 
-    <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-         📝 ABOUT SECTION
-         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
-    <section id="about">
-        <div class="about-content">
-            <!-- 
-            ⚡ REPLACE-ABOUT-TEXT: 替换以下文字为你的个人介绍
-            每个单词会被拆分并添加滚动动画，所以尽量保持简洁有力
-            -->
-            <p class="about-text">
-                I craft <span class="highlight">digital experiences</span> 
-                that blend art and code. 
-                From interactive installations to web experiments, 
-                every project is a playground for <span class="highlight">creative chaos</span>.
-            </p>
-            
-            <!-- SVG 手绘涂鸦装饰 -->
-            <svg class="doodle-svg doodle-arrow" viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg">
-                <path class="svg-path" d="M 10 75 Q 80 10, 150 75 L 140 65 M 150 75 L 140 85" 
-                      stroke="var(--hot-pink)" 
-                      stroke-width="4" 
-                      fill="none" 
-                      stroke-linecap="round" 
-                      stroke-linejoin="round"/>
-            </svg>
-            
-            <svg class="doodle-svg doodle-circle" viewBox="0 0 250 250" xmlns="http://www.w3.org/2000/svg">
-                <circle class="svg-path" cx="125" cy="125" r="100" 
-                        stroke="var(--klein-blue)" 
-                        stroke-width="5" 
-                        fill="none" 
-                        stroke-dasharray="8 8"/>
-            </svg>
-        </div>
-    </section>
+    <nav class="fixed top-0 left-0 w-full p-8 flex justify-between items-center z-50 mix-blend-difference text-[#EAE7DC]">
+        <div class="font-display text-xl tracking-widest">PORTFOLIO.2026</div>
+        <div class="font-hand text-xl">Available for work</div>
+    </nav>
 
-    <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-         🖼️ GALLERY SECTION
-         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
-    <section id="gallery">
-        <h2 class="section-label">Selected Works ✦</h2>
-        
-        <div class="gallery-container">
-            <!-- 
-            ⚡ REPLACE-PROJECT-IMAGE: 替换每张照片的 src
-            推荐尺寸: 800x600px 或 4:3 比例
-            可以是项目截图、设计稿或艺术照片
-            -->
+    <main>
+
+        <section class="relative h-screen w-full flex items-center justify-center overflow-hidden" id="hero">
+            <div id="canvas-container" class="absolute inset-0 w-full h-full z-0 pointer-events-auto"></div>
             
-            <!-- 项目卡片 1 -->
-            <div class="photo-card">
-                <img src="https://picsum.photos/800/600?random=1" 
-                     alt="Project 1" 
-                     class="photo-img">
-                <div class="photo-title">Interactive Installation</div>
+            <div class="relative z-10 text-center mix-blend-multiply pointer-events-none">
+                <h1 class="hero-title font-display text-[12vw] leading-[0.8] text-black opacity-90">
+                    CREATIVE<br>
+                    <span class="text-[transparent] [-webkit-text-stroke:2px_black] italic pr-4">FRONTEND</span><br>
+                    DEVELOPER
+                </h1>
+                <p class="font-hand text-2xl mt-8 rotate-[-3deg] text-[var(--c-accent)] bg-black px-4 py-1 inline-block text-white transform origin-left">
+                    "Code is my canvas"
+                </p>
             </div>
             
-            <!-- 项目卡片 2 -->
-            <div class="photo-card">
-                <img src="https://picsum.photos/800/600?random=2" 
-                     alt="Project 2" 
-                     class="photo-img">
-                <div class="photo-title">Web Experiment</div>
+            <div class="absolute bottom-20 right-20 w-32 h-32 bg-[var(--c-neon)] rounded-full flex items-center justify-center animate-spin-slow mix-blend-multiply z-20">
+                <span class="font-display text-xs">Scroll Down</span>
             </div>
-            
-            <!-- 项目卡片 3 -->
-            <div class="photo-card">
-                <img src="https://picsum.photos/800/600?random=3" 
-                     alt="Project 3" 
-                     class="photo-img">
-                <div class="photo-title">Digital Collage</div>
-            </div>
-            
-            <!-- 项目卡片 4 -->
-            <div class="photo-card">
-                <img src="https://picsum.photos/800/600?random=4" 
-                     alt="Project 4" 
-                     class="photo-img">
-                <div class="photo-title">Generative Art</div>
-            </div>
-            
-            <!-- 项目卡片 5 -->
-            <div class="photo-card">
-                <img src="https://picsum.photos/800/600?random=5" 
-                     alt="Project 5" 
-                     class="photo-img">
-                <div class="photo-title">Motion Graphics</div>
-            </div>
-            
-            <!-- 项目卡片 6 -->
-            <div class="photo-card">
-                <img src="https://picsum.photos/800/600?random=6" 
-                     alt="Project 6" 
-                     class="photo-img">
-                <div class="photo-title">3D Playground</div>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-         📧 FOOTER
-         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
-    <footer id="footer">
-        <!-- 
-        ⚡ REPLACE-EMAIL: 替换为你的真实邮箱地址
-        data-text 属性用于 Glitch 效果，记得同步修改
-        -->
-        <a href="mailto:hello@example.com" 
-           class="footer-email" 
-           data-text="hello@example.com">
-            hello@example.com
-        </a>
-        
-        <div class="footer-note">
-            © 2026 · Crafted with chaos & code
-        </div>
-    </footer>
-
-    <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-         📚 EXTERNAL LIBRARIES (CDN)
-         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
-    
-    <!-- Three.js (r160) -->
-    <script type="importmap">
-    {
-        "imports": {
-            "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"
-        }
-    }
-    </script>
-    
-    <!-- GSAP + ScrollTrigger -->
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-    
-    <!-- Lenis Smooth Scroll -->
-    <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.27/dist/lenis.min.js"></script>
-
-    <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-         🎨 MAIN JAVASCRIPT
-         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
-    <script type="module">
-        import * as THREE from 'three';
-        
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        // 🔧 GLOBAL STATE
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        const mouse = { x: 0, y: 0 };
-        let scene, camera, renderer, planeMesh;
-        
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        // 🎬 INITIALIZATION
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        window.addEventListener('DOMContentLoaded', () => {
-            initLenis();
-            initThreeJS();
-            initGSAPAnimations();
-            initAboutTextAnimation();
-            hideLoadingScreen();
-            trackMouse();
-        });
-        
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        // 🌊 LENIS SMOOTH SCROLL
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        function initLenis() {
-            const lenis = new Lenis({
-                duration: 1.2,  // ⚡ 调整此值改变滚动速度 (1.0 = 快, 2.0 = 慢)
-                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // easeOutExpo
-                smooth: true,
-                smoothTouch: false, // 移动端保持原生滚动
-            });
-            
-            // 连接 GSAP ScrollTrigger
-            lenis.on('scroll', ScrollTrigger.update);
-            
-            gsap.ticker.add((time) => {
-                lenis.raf(time * 1000);
-            });
-            
-            gsap.ticker.lagSmoothing(0);
-        }
-        
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        // 🎨 THREE.JS HERO CANVAS (扭曲图片 Shader)
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        function initThreeJS() {
-            const canvas = document.getElementById('hero-canvas');
-            if (!canvas) return;
-            
-            // Scene setup
-            scene = new THREE.Scene();
-            camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
-            camera.position.z = 5;
-            
-            renderer = new THREE.WebGLRenderer({
-                canvas: canvas,
-                alpha: true,
-                antialias: true,
-            });
-            
-            renderer.setSize(window.innerWidth * 0.6, window.innerHeight * 0.6);
-            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // 性能优化
-            
-            // ⚡ REPLACE-HERO-TEXTURE: 替换纹理图片
-            // 推荐: 正方形透明背景PNG，尺寸1024x1024或更大
-            const textureLoader = new THREE.TextureLoader();
-            const texture = textureLoader.load(
-                'https://picsum.photos/1024/1024?random=hero',
-                () => {
-                    canvas.classList.add('loaded');
-                }
-            );
-            
-            // Custom Shader Material (波形扭曲效果)
-            const shaderMaterial = new THREE.ShaderMaterial({
-                uniforms: {
-                    uTexture: { value: texture },
-                    uMouse: { value: new THREE.Vector2(0, 0) },
-                    uTime: { value: 0 },
-                    uIntensity: { value: 0.3 }, // ⚡ 调整扭曲强度 (0.1 = 微弱, 0.5 = 强烈)
-                },
-                vertexShader: `
-                    uniform vec2 uMouse;
-                    uniform float uTime;
-                    uniform float uIntensity;
+        <section class="relative py-32 px-4 md:px-20 max-w-7xl mx-auto" id="about">
+            <div class="flex flex-col md:flex-row gap-12 items-center">
+                <div class="w-full md:w-1/2 relative">
+                    <h2 class="font-display text-6xl mb-8 leading-tight reveal-text">
+                        Breaking the <span class="line-through decoration-[var(--c-accent)] decoration-4">Grid</span> System.
+                    </h2>
+                    <p class="text-xl leading-relaxed text-gray-700 reveal-text font-serif">
+                        I create digital experiences that feel <span class="font-hand text-3xl text-[var(--c-accent)]">organic</span>. 
+                        By blending modern WebGL technologies with traditional graphic design principles, I build websites that tell a story.
+                        <br><br>
+                        Currently obsessing over micro-interactions and raw brutalist aesthetics.
+                    </p>
                     
-                    varying vec2 vUv;
-                    
-                    void main() {
-                        vUv = uv;
-                        vec3 pos = position;
-                        
-                        // 计算顶点到鼠标的距离
-                        float dist = distance(uv, uMouse);
-                        
-                        // 基于距离的波形扭曲 (使用 sin 波)
-                        float wave = sin(dist * 10.0 - uTime * 2.0) * uIntensity;
-                        pos.z += wave * (1.0 - dist);
-                        
-                        gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
-                    }
-                `,
-                fragmentShader: `
-                    uniform sampler2D uTexture;
-                    varying vec2 vUv;
-                    
-                    void main() {
-                        vec4 texColor = texture2D(uTexture, vUv);
-                        gl_FragColor = texColor;
-                    }
-                `,
-                transparent: true,
-            });
-            
-            // Create plane mesh
-            const geometry = new THREE.PlaneGeometry(4, 4, 32, 32); // 增加分段数以获得更平滑的变形
-            planeMesh = new THREE.Mesh(geometry, shaderMaterial);
-            scene.add(planeMesh);
-            
-            // Animation loop
-            function animate() {
-                requestAnimationFrame(animate);
-                
-                // 更新 uniform
-                shaderMaterial.uniforms.uTime.value += 0.05;
-                shaderMaterial.uniforms.uMouse.value.x = mouse.x;
-                shaderMaterial.uniforms.uMouse.value.y = 1.0 - mouse.y; // 翻转 Y 轴
-                
-                renderer.render(scene, camera);
-            }
-            animate();
-            
-            // Responsive resize
-            window.addEventListener('resize', () => {
-                const width = window.innerWidth * 0.6;
-                const height = window.innerHeight * 0.6;
-                
-                camera.aspect = width / height;
-                camera.updateProjectionMatrix();
-                renderer.setSize(width, height);
-            });
-        }
-        
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        // 🖱️ MOUSE TRACKING
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        function trackMouse() {
-            window.addEventListener('mousemove', (e) => {
-                mouse.x = e.clientX / window.innerWidth;
-                mouse.y = e.clientY / window.innerHeight;
-            });
-        }
-        
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        // 🎭 GSAP SCROLL ANIMATIONS
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        function initGSAPAnimations() {
-            gsap.registerPlugin(ScrollTrigger);
-            
-            // Hero Title Animation (分行飞入)
-            gsap.from('.title-line', {
-                y: 200,
-                opacity: 0,
-                rotation: 10,
-                duration: 1.5,
-                stagger: 0.2,
-                ease: 'power4.out',
-                scrollTrigger: {
-                    trigger: '#hero',
-                    start: 'top top',
-                    end: 'bottom top',
-                }
-            });
-            
-            // Parallax: Hero Title (视差速度因子: 0.5x)
-            gsap.to('.hero-title-wrapper', {
-                y: 300,
-                ease: 'none',
-                scrollTrigger: {
-                    trigger: '#hero',
-                    start: 'top top',
-                    end: 'bottom top',
-                    scrub: 1, // ⚡ scrub 值越大越平滑 (0.5 = 快速响应, 2 = 延迟响应)
-                }
-            });
-            
-            // Parallax: Three.js Canvas (更慢的视差: 0.3x)
-            gsap.to('#hero-canvas', {
-                y: 150,
-                ease: 'none',
-                scrollTrigger: {
-                    trigger: '#hero',
-                    start: 'top top',
-                    end: 'bottom top',
-                    scrub: 1.5,
-                }
-            });
-            
-            // Gallery Cards: 从不同方向飞入
-            const cards = document.querySelectorAll('.photo-card');
-            cards.forEach((card, index) => {
-                const direction = index % 2 === 0 ? -100 : 100;
-                
-                gsap.from(card, {
-                    x: direction,
-                    y: 100,
-                    rotation: direction > 0 ? 20 : -20,
-                    opacity: 0,
-                    duration: 1.2,
-                    ease: 'power3.out',
-                    scrollTrigger: {
-                        trigger: card,
-                        start: 'top 85%',
-                        end: 'top 50%',
-                        toggleActions: 'play none none reverse',
-                    }
-                });
-                
-                // Parallax: 每张卡片不同速度
-                const speed = 0.5 + (index * 0.1); // 速度递增
-                gsap.to(card, {
-                    y: -50 * speed,
-                    ease: 'none',
-                    scrollTrigger: {
-                        trigger: '#gallery',
-                        start: 'top bottom',
-                        end: 'bottom top',
-                        scrub: 2,
-                    }
-                });
-            });
-            
-            // Footer Email: 缩放进入
-            gsap.from('.footer-email', {
-                scale: 0.5,
-                opacity: 0,
-                duration: 1.5,
-                ease: 'elastic.out(1, 0.5)',
-                scrollTrigger: {
-                    trigger: '#footer',
-                    start: 'top 70%',
-                }
-            });
-        }
-        
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        // ✍️ ABOUT TEXT SPLIT ANIMATION
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        function initAboutTextAnimation() {
-            const aboutText = document.querySelector('.about-text');
-            if (!aboutText) return;
-            
-            // 将文本分割成单词并包裹在 <span> 中
-            const text = aboutText.innerHTML;
-            const words = text.split(' ');
-            aboutText.innerHTML = words.map(word => `<span>${word}</span>`).join(' ');
-            
-            const spans = aboutText.querySelectorAll('span');
-            
-            // GSAP 逐词动画
-            gsap.from(spans, {
-                y: 50,
-                opacity: 0,
-                duration: 0.8,
-                stagger: 0.03, // ⚡ 调整此值改变单词出现间隔 (0.02 = 快速, 0.05 = 慢速)
-                ease: 'power2.out',
-                scrollTrigger: {
-                    trigger: aboutText,
-                    start: 'top 75%',
-                    end: 'bottom 60%',
-                }
-            });
-        }
-        
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        // 💫 HIDE LOADING SCREEN
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        function hideLoadingScreen() {
-            setTimeout(() => {
-                document.getElementById('loading-screen').classList.add('hidden');
-            }, 1500); // ⚡ 调整加载屏幕显示时长 (毫秒)
-        }
-    </script>
-</body>
-</html>
+                    <svg class="absolute -top-10 -left-10 w-32 h-32 opacity-60 doodle-draw" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M10,50 Q30,10 50,50 T90,50" stroke="#000" />
+                        <path d="M20,60 L80,20" stroke="#E85A4F" />
+                    </svg>
+                </div>
+
+                <div class="w-full md:w-1/2 relative h-[400px]">
+                    <div class="photo-card absolute top-0 left-10 w-64 h-80 bg-white p-2 shadow-xl rotate-[-6deg] z-10" data-speed="0.5">
+                        <div class="tape w-24 h-8 -top-3 left-20"></div>
+                        <img src="https://picsum.photos/300/400?random=1" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500" alt="Me">
+                        <p class="font-hand text-center mt-2 text-gray-500">Thinking...</p>
+                    </div>
+                    <div class="photo-card absolute top-20 left-40 w-60 h-60 bg-black p-2 shadow-xl rotate-[4deg] z-20" data-speed="1.2">
+                        <div class="tape w-24 h-8 -bottom-3 right-10 rotate-90"></div>
+                        <img src="https://picsum.photos/300/300?random=2" class="w-full h-full object-cover opacity-80" alt="Coding">
+                    </div>
+                </div>
+            </div>
+        </section>
