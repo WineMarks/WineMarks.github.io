@@ -1,0 +1,422 @@
+/* ============================================== 
+   WineMarks - 悬浮剪贴簿创意主页样式
+   ============================================== */
+
+/* 全局重置 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* 纸张拼贴风格配色 - 低饱和度复古色调 */
+    --paper-color: #f4f1ea;
+    --paper-white: #fefefe;
+    --ink-dark: #2b2b2b;
+    --ink-medium: #555555;
+    --ink-light: #888888;
+    --tape-yellow: rgba(255, 215, 0, 0.4);
+    --highlight-pink: #ff6b9d;
+    --highlight-blue: #4ecdc4;
+    --highlight-yellow: #ffe66d;
+    --shadow-soft: rgba(0, 0, 0, 0.08);
+    --shadow-medium: rgba(0, 0, 0, 0.15);
+    --shadow-strong: rgba(0, 0, 0, 0.25);
+}
+
+body {
+    overflow-x: hidden;
+    font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--paper-color);
+    color: var(--ink-dark);
+    line-height: 1.6;
+}
+
+/* 加载指示器 */
+#loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--paper-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease;
+}
+
+#loader.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid var(--shadow-soft);
+    border-top-color: var(--ink-dark);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+#loader p {
+    margin-top: 20px;
+    font-family: 'Caveat', cursive;
+    font-size: 1.5rem;
+    color: var(--ink-medium);
+}
+
+/* 汉堡包菜单按钮 */
+.hamburger-menu {
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background: var(--paper-white);
+    border: 2px solid var(--ink-dark);
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 12px;
+    box-shadow: 3px 3px 0 var(--shadow-medium);
+    transition: all 0.3s ease;
+}
+
+.hamburger-menu:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 5px 5px 0 var(--shadow-medium);
+}
+
+.hamburger-menu:active {
+    transform: translate(1px, 1px);
+    box-shadow: 2px 2px 0 var(--shadow-medium);
+}
+
+.hamburger-line {
+    width: 24px;
+    height: 3px;
+    background: var(--ink-dark);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+/* 侧边导航菜单 */
+.side-nav {
+    position: fixed;
+    top: 0;
+    right: -350px;
+    width: 320px;
+    height: 100vh;
+    background: var(--paper-white);
+    border-left: 3px solid var(--ink-dark);
+    box-shadow: -5px 0 20px var(--shadow-strong);
+    z-index: 999;
+    padding: 80px 40px 40px;
+    transition: right 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    overflow-y: auto;
+}
+
+.side-nav.open {
+    right: 0;
+}
+
+.close-menu {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    background: none;
+    border: none;
+    font-size: 2.5rem;
+    line-height: 1;
+    color: var(--ink-dark);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.close-menu:hover {
+    transform: rotate(90deg);
+}
+
+.nav-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li {
+    margin: 25px 0;
+}
+
+.nav-link {
+    display: block;
+    font-family: 'Caveat', cursive;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--ink-dark);
+    text-decoration: none;
+    padding: 10px 15px;
+    border-left: 4px solid transparent;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.nav-link::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--highlight-pink);
+    transform: translateY(-50%);
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover {
+    border-left-color: var(--highlight-pink);
+    padding-left: 25px;
+    color: var(--highlight-pink);
+}
+
+.nav-link:hover::before {
+    width: 100%;
+}
+
+.menu-footer {
+    position: absolute;
+    bottom: 20px;
+    left: 40px;
+    right: 40px;
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--ink-light);
+    font-family: 'Patrick Hand', cursive;
+}
+
+/* 3D Canvas 容器 */
+#scene-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 1;
+}
+
+#webgl-canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+/* 滚动提示器 */
+.scroll-indicator {
+    position: fixed;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    text-align: center;
+    animation: fadeInOut 3s ease-in-out infinite;
+    pointer-events: none;
+}
+
+.scroll-indicator span {
+    display: block;
+    font-family: 'Caveat', cursive;
+    font-size: 1.3rem;
+    color: var(--ink-medium);
+    margin-bottom: 10px;
+    text-shadow: 0 0 10px var(--paper-white);
+}
+
+.arrow-down {
+    font-size: 2rem;
+    color: var(--ink-dark);
+    animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes fadeInOut {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+/* 滚动进度条 */
+.progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 4px;
+    width: 0%;
+    background: linear-gradient(
+        90deg,
+        var(--highlight-pink) 0%,
+        var(--highlight-blue) 50%,
+        var(--highlight-yellow) 100%
+    );
+    z-index: 1001;
+    transition: width 0.1s ease;
+    box-shadow: 0 0 10px var(--shadow-soft);
+}
+
+/* 语义化内容层 - 隐藏但可被屏幕阅读器访问 */
+.semantic-content {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .hamburger-menu {
+        top: 20px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+    }
+
+    .side-nav {
+        width: 280px;
+        right: -300px;
+        padding: 70px 30px 30px;
+    }
+
+    .nav-link {
+        font-size: 1.5rem;
+    }
+
+    .scroll-indicator {
+        bottom: 30px;
+    }
+
+    .scroll-indicator span {
+        font-size: 1.1rem;
+    }
+
+    .arrow-down {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hamburger-menu {
+        width: 40px;
+        height: 40px;
+        top: 15px;
+        right: 15px;
+    }
+
+    .hamburger-line {
+        width: 20px;
+        height: 2px;
+    }
+
+    .side-nav {
+        width: 100%;
+        right: -100%;
+        border-left: none;
+    }
+
+    .nav-link {
+        font-size: 1.4rem;
+    }
+
+    .scroll-indicator {
+        bottom: 20px;
+    }
+
+    .scroll-indicator span {
+        font-size: 1rem;
+    }
+
+    #loader p {
+        font-size: 1.2rem;
+    }
+}
+
+/* 打印样式 */
+@media print {
+    .hamburger-menu,
+    .side-nav,
+    .scroll-indicator,
+    .progress-bar,
+    #scene-container {
+        display: none !important;
+    }
+
+    .semantic-content {
+        position: static !important;
+        left: auto !important;
+        width: auto !important;
+        height: auto !important;
+        overflow: visible !important;
+    }
+
+    body {
+        background: white;
+        color: black;
+    }
+}
+
+/* 无障碍辅助 - 高对比度模式 */
+@media (prefers-contrast: high) {
+    :root {
+        --ink-dark: #000000;
+        --paper-white: #ffffff;
+        --paper-color: #ffffff;
+    }
+
+    .hamburger-menu,
+    .side-nav {
+        border-width: 3px;
+    }
+}
+
+/* 减少动画 - 尊重用户偏好 */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .scroll-indicator {
+        animation: none;
+    }
+
+    .arrow-down {
+        animation: none;
+    }
+}
