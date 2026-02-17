@@ -1,99 +1,263 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="WineMarks - 欢迎访问我的个人网站">
-    <meta name="author" content="WineMarks">
-    <title>WineMarks - 首页</title>
-    <link rel="stylesheet" href="../assets/css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="WineMarks — 创意技术探索者 | 游戏开发 · 深度学习 · 创意编程">
+  <meta name="author" content="WineMarks">
+  <title>WineMarks — 个人主页</title>
+
+  <!-- Google Fonts: Display + 中文正文 + 等宽 + 手写 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=JetBrains+Mono:wght@400;700&family=Noto+Sans+SC:wght@400;700;900&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- 样式 -->
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- 导航栏 -->
-    <nav class="navbar">
-        <div class="container">
-            <div class="nav-brand">
-                <h1>WineMarks</h1>
-            </div>
-            <ul class="nav-menu">
-                <li><a href="index.html" class="active">首页</a></li>
-                <li><a href="about.html">关于</a></li>
-                <li><a href="contact.html">联系</a></li>
-            </ul>
-        </div>
+
+  <!-- ══════════════════════════════════════════════
+       加载画面
+       ══════════════════════════════════════════════ -->
+  <div class="loader" id="loader">
+    <span class="loader-text">LOADING</span>
+    <div class="loader-bar">
+      <div class="loader-bar-inner" id="loader-bar-inner"></div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       WebGL 着色器背景 (Three.js 渲染到此 canvas)
+       ══════════════════════════════════════════════ -->
+  <canvas id="webgl-canvas"></canvas>
+
+  <!-- ══════════════════════════════════════════════
+       内容层
+       ══════════════════════════════════════════════ -->
+  <div class="content-wrapper">
+
+    <!-- ── 导航栏 ──────────────────────────────── -->
+    <nav class="nav">
+      <div class="nav-brand">WineMarks</div>
+      <div class="nav-links">
+        <a href="#about">关于</a>
+        <a href="#works">作品</a>
+        <a href="#contact">联系</a>
+      </div>
     </nav>
 
-    <!-- 主内容区 -->
-    <main>
-        <!-- Hero Section -->
-        <section class="hero">
-            <div class="container">
-                <div class="hero-content">
-                    <h2 class="hero-title">欢迎来到我的个人网站</h2>
-                    <p class="hero-subtitle">探索、分享、创造</p>
-                    <div class="hero-buttons">
-                        <a href="about.html" class="btn btn-primary">了解更多</a>
-                        <a href="contact.html" class="btn btn-secondary">联系我</a>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <!-- ── HERO ────────────────────────────────── -->
+    <header class="hero" id="hero">
+      <div class="hero-content">
+        <h1 class="hero-title">
+          <!--
+            解构排版: 每个 .line 可独立动画 (位移、旋转、延迟)
+            修改文字即可自定义 Hero 展示
+          -->
+          <span class="line"><span class="line-inner">创意</span></span>
+          <span class="line"><span class="line-inner">技术</span></span>
+          <span class="line"><span class="line-inner">探索者</span></span>
+        </h1>
+        <p class="hero-subtitle">WineMarks — Game Dev · Deep Learning · Creative Code</p>
+      </div>
+      <div class="hero-scroll-hint">
+        <span>向下滚动</span>
+        <span class="arrow"></span>
+      </div>
+    </header>
 
-        <!-- 内容区 -->
-        <section class="content-section">
-            <div class="container">
-                <h2 class="section-title">我的特色</h2>
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <div class="feature-icon">🎨</div>
-                        <h3>创意设计</h3>
-                        <p>精心设计的用户界面，提供最佳的视觉体验</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">💻</div>
-                        <h3>技术分享</h3>
-                        <p>分享编程技术、学习心得和项目经验</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">🚀</div>
-                        <h3>持续进步</h3>
-                        <p>不断学习新技术，追求卓越和创新</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 最新动态 -->
-        <section class="updates-section">
-            <div class="container">
-                <h2 class="section-title">最新动态</h2>
-                <div class="updates-list">
-                    <article class="update-item">
-                        <div class="update-date">2026-02-16</div>
-                        <h3>网站正式上线</h3>
-                        <p>欢迎访问我的个人网站！这里将分享我的想法、项目和学习经验。</p>
-                    </article>
-                    <article class="update-item">
-                        <div class="update-date">2026-02-15</div>
-                        <h3>开始构建网站</h3>
-                        <p>开始使用 HTML、CSS 构建个人网站，期待与大家分享更多内容。</p>
-                    </article>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- 页脚 -->
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2026 WineMarks. All rights reserved.</p>
+    <!-- ── ABOUT: "Glitch" Bio ─────────────────── -->
+    <section class="about" id="about">
+      <div class="about-inner">
+        <div class="about-content">
+          <p class="about-label">关于我</p>
+          <h2 class="section-title">你好，<br>我是 WineMarks</h2>
+          <div class="about-text">
             <p>
-                <a href="https://github.com/WineMarks" target="_blank">GitHub</a> |
-                <a href="mailto:your-email@example.com">Email</a>
+              一个在代码与艺术之间反复横跳的人。我热衷于
+              <span class="glitch-word"
+                    data-text="游戏开发"
+                    data-img="https://picsum.photos/400/260?random=1"
+                    data-label="GAME DEV">游戏开发</span>，
+              <!-- ↑ 替换 data-img 为你的游戏项目截图或透明背景PNG -->
+              专注于用程序创造交互式体验。同时，我在
+              <span class="glitch-word"
+                    data-text="深度学习"
+                    data-img="https://picsum.photos/400/260?random=2"
+                    data-label="DEEP LEARNING">深度学习</span>
+              <!-- ↑ 替换 data-img 为你的AI研究可视化图片 -->
+              领域探索计算机视觉与图像增强算法。
             </p>
+            <p>
+              我相信最好的作品诞生于
+              <span class="glitch-word"
+                    data-text="技术"
+                    data-img="https://picsum.photos/400/260?random=3"
+                    data-label="TECH STACK">技术</span>
+              与
+              <span class="glitch-word"
+                    data-text="设计"
+                    data-img="https://picsum.photos/400/260?random=4"
+                    data-label="DESIGN">设计</span>
+              的交汇处——在精确的工程思维与感性的美学直觉之间，
+              找到那个令人兴奋的平衡点。
+            </p>
+          </div>
         </div>
+
+        <!-- 装饰: 倾斜的拍立得照片 -->
+        <div class="about-decoration">
+          <!-- 替换为你的真实照片或项目图片 -->
+          <div class="deco-card">
+            <img src="https://picsum.photos/400/300?random=5" alt="装饰照片 1">
+            <span class="caption">// creative.process()</span>
+          </div>
+          <div class="deco-card">
+            <img src="https://picsum.photos/400/300?random=6" alt="装饰照片 2">
+            <span class="caption">// debug.aesthetic()</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ── SELECTED WORKS ──────────────────────── -->
+    <section class="works" id="works">
+      <div class="works-header">
+        <p class="works-label">精选作品</p>
+        <h2 class="section-title">Selected Works</h2>
+      </div>
+
+      <!--
+        散落的拍立得布局
+        ─────────────────────────────────────────
+        每张 .work-card 通过 CSS 自定义属性控制位置和旋转:
+          --x       水平偏移
+          --y       垂直偏移
+          --rotate  旋转角度
+        JS 会在 ScrollTrigger 中为它们添加视差动画
+      -->
+      <div class="works-grid">
+
+        <!-- 项目 1: Plants vs. Zombies Roguelike -->
+        <article class="work-card torn-edge"
+                 style="--x: 5%; --y: 2%; --rotate: -4deg;">
+          <!-- 替换为项目GIF或截图 -->
+          <img class="card-img"
+               src="https://picsum.photos/500/380?random=10"
+               alt="Plants vs. Zombies Roguelike 截图">
+          <div class="card-info">
+            <h3 class="card-title">Plants vs. Zombies Roguelike</h3>
+            <p class="card-tag">Unity · C# · 游戏设计</p>
+            <p class="card-note">← 最新版本!</p>
+          </div>
+        </article>
+
+        <!-- 项目 2: Low-light Detection -->
+        <article class="work-card"
+                 style="--x: 55%; --y: 8%; --rotate: 3deg;">
+          <!-- 替换为研究可视化截图或对比图PNG -->
+          <img class="card-img"
+               src="https://picsum.photos/500/380?random=11"
+               alt="Low-light Detection 研究">
+          <div class="card-info">
+            <h3 class="card-title">Low-light Object Detection</h3>
+            <p class="card-tag">PyTorch · YOLO · 图像增强</p>
+            <p class="card-note">暗光检测研究 →</p>
+          </div>
+        </article>
+
+        <!-- 项目 3: 占位 — 创意编程 -->
+        <article class="work-card torn-edge"
+                 style="--x: 25%; --y: 52%; --rotate: -6deg;">
+          <!-- 替换为你的创意编程/WebGL作品截图 -->
+          <img class="card-img"
+               src="https://picsum.photos/500/380?random=12"
+               alt="创意编程项目">
+          <div class="card-info">
+            <h3 class="card-title">Creative Coding Experiments</h3>
+            <p class="card-tag">Three.js · GLSL · 生成艺术</p>
+          </div>
+        </article>
+
+        <!-- 项目 4: 占位 — 其他项目 -->
+        <article class="work-card"
+                 style="--x: 60%; --y: 58%; --rotate: 5deg;">
+          <!-- 替换为你的其他项目截图 -->
+          <img class="card-img"
+               src="https://picsum.photos/500/380?random=13"
+               alt="项目截图">
+          <div class="card-info">
+            <h3 class="card-title">项目名称</h3>
+            <p class="card-tag">技术栈标签</p>
+          </div>
+        </article>
+
+        <!-- 项目 5: 占位 -->
+        <article class="work-card torn-edge"
+                 style="--x: 10%; --y: 82%; --rotate: 2deg;">
+          <img class="card-img"
+               src="https://picsum.photos/500/380?random=14"
+               alt="项目截图">
+          <div class="card-info">
+            <h3 class="card-title">更多探索</h3>
+            <p class="card-tag">Coming Soon</p>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ── CONTACT / FOOTER ────────────────────── -->
+    <footer class="contact" id="contact">
+      <p class="contact-label">联系我</p>
+      <!--
+        巨大邮箱链接
+        替换 href 和文字为你的真实邮箱
+        .char 包裹的每个字符支持悬停波浪动画 (main.js 自动拆分)
+      -->
+      <a class="contact-email"
+         href="mailto:your@email.com">
+        b2778186897@gmail.com
+      </a>
+
+      <div class="contact-socials">
+        <a href="https://github.com/WineMarks" target="_blank" rel="noopener">GitHub</a>
+        <a href="#" target="_blank" rel="noopener">Twitter</a>
+        <a href="#" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+
+      <p class="footer-sign">© 2026 WineMarks · 用代码与热情构建</p>
     </footer>
 
-    <script src="../assets/js/main.js"></script>
+  </div><!-- /.content-wrapper -->
+
+  <!-- ══════════════════════════════════════════════
+       外部依赖 (CDN)
+       ══════════════════════════════════════════════ -->
+
+  <!-- Three.js — import map 方式, 供 ES Module 使用 -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js"
+    }
+  }
+  </script>
+
+  <!-- GSAP + ScrollTrigger -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
+
+  <!-- Lenis 平滑滚动 -->
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+
+  <!-- 核心逻辑 (ES Module) -->
+  <script type="module" src="main.js"></script>
+
 </body>
 </html>
